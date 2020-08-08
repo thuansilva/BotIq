@@ -30,5 +30,22 @@ def timestamp_converter(x): # Função para converter timestamp
 	
 	return str(hora)[:-6]
 
+def banca():
+    print(API.get_balance())
 
-print(API.get_balance())
+## Pegar até 1000 velas #########################
+
+par = 'EURUSD'
+
+API.start_candles_stream(par,60,1)
+time.sleep(1)
+
+vela=API.get_realtime_candles(par,60)
+
+while True:
+    for velas in vela:
+        print(vela[velas]['close'])
+    time.sleep(1)
+
+API.stop_candles_stream(par,60)
+
